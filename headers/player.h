@@ -11,11 +11,13 @@
 class player
 {
     public:
-        player();
+        player(int screenWidth, int screenHeight);
         void Draw(inputManager inputManager);
         void Move(inputManager inputManager, timeManager timeManager);
 
         Vector2 Pos = (Vector2){0.0,0.0};
+
+        Camera2D camera = { 0 };
     private:
         bool flipped = false;
         bool up = false;

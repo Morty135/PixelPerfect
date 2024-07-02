@@ -16,12 +16,7 @@ int main(void)
     inputManager inputManager;
     timeManager timeManager;
 
-    player player;
-
-    Camera2D camera = { 0 };
-    camera.target = (Vector2){ player.Pos.x + 20.0f, player.Pos.y + 20.0f };
-    camera.offset = (Vector2){ screenWidth/2.0f, screenHeight/2.0f };
-    camera.zoom = 1.0f;
+    player player(screenWidth, screenHeight);
 
     SetTargetFPS(30);
 
@@ -30,22 +25,16 @@ int main(void)
         timeManager.UpdateTime();
         player.Move(inputManager, timeManager);
 
-        camera.target = (Vector2){ player.Pos.x, player.Pos.y};
-
-        camera.zoom += ((float)GetMouseWheelMove()*0.10f);
-
-        if (camera.zoom > 3.0f) camera.zoom = 3.0f;
-        else if (camera.zoom < 0.1f) camera.zoom = 0.1f;
-
         BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
-            BeginMode2D(camera);
+            BeginMode2D(player.camera);
 
                 player.Draw(inputManager);
 
-                DrawRectangle(0,0,50, 100, BLUE);
+                DrawRectangle(0,0, 4, 4, BLUE);
+                DrawRectangle(4, 4, 4, 4, GREEN);
 
             EndMode2D();
 
